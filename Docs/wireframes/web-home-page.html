@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>COMEX STAT | Inteligência Comercial</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-dim": "#dcd9db",
+                      "secondary-fixed-dim": "#4edea3",
+                      "primary-fixed-dim": "#bec6e0",
+                      "on-tertiary-container": "#75859d",
+                      "surface-container-low": "#f6f3f5",
+                      "secondary-fixed": "#6ffbbe",
+                      "primary-container": "#131b2e",
+                      "on-primary-fixed": "#131b2e",
+                      "error": "#ba1a1a",
+                      "on-primary-container": "#7c839b",
+                      "on-tertiary": "#ffffff",
+                      "on-surface": "#1b1b1d",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed-variant": "#005236",
+                      "surface-container-high": "#eae7e9",
+                      "tertiary-fixed-dim": "#b7c8e1",
+                      "tertiary-container": "#0b1c30",
+                      "tertiary-fixed": "#d3e4fe",
+                      "primary-fixed": "#dae2fd",
+                      "outline": "#76777d",
+                      "outline-variant": "#c6c6cd",
+                      "surface": "#fcf8fa",
+                      "on-secondary": "#ffffff",
+                      "on-tertiary-fixed": "#0b1c30",
+                      "on-secondary-container": "#00714d",
+                      "inverse-surface": "#303032",
+                      "inverse-on-surface": "#f3f0f2",
+                      "surface-variant": "#e4e2e4",
+                      "inverse-primary": "#bec6e0",
+                      "on-primary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "on-secondary-fixed": "#002113",
+                      "on-error-container": "#93000a",
+                      "surface-container-highest": "#e4e2e4",
+                      "tertiary": "#000000",
+                      "on-primary-fixed-variant": "#3f465c",
+                      "primary": "#000000",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary": "#006c49",
+                      "on-surface-variant": "#45464d",
+                      "surface-tint": "#565e74",
+                      "on-background": "#1b1b1d",
+                      "surface-container": "#f0edef",
+                      "on-tertiary-fixed-variant": "#38485d",
+                      "background": "#fcf8fa",
+                      "surface-bright": "#fcf8fa",
+                      "secondary-container": "#6cf8bb"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "lg": "40px",
+                      "xs": "4px",
+                      "margin": "32px",
+                      "container-max-width": "1440px",
+                      "gutter": "24px",
+                      "xl": "64px",
+                      "md": "24px",
+                      "base": "8px",
+                      "sm": "12px"
+              },
+              "fontFamily": {
+                      "display-lg": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "body-md": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "label-md": ["Inter"],
+                      "headline-sm": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "data-mono": ["JetBrains Mono"]
+              },
+              "fontSize": {
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "data-mono": ["14px", {"lineHeight": "20px", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .bg-mesh-dark {
+            background-color: #0b1c30;
+            background-image: radial-gradient(at 0% 0%, rgba(0, 108, 73, 0.15) 0px, transparent 50%),
+                              radial-gradient(at 100% 100%, rgba(19, 27, 46, 0.8) 0px, transparent 50%);
+        }
+        .world-map-svg {
+            opacity: 0.1;
+            filter: invert(1);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-secondary-container">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center px-lg h-16 w-full sticky top-0 z-40 bg-surface border-b border-outline-variant shadow-sm transition-all duration-300" id="main-header">
+<div class="flex items-center gap-sm">
+<span class="font-headline-md text-headline-md text-primary tracking-tight">COMEX STAT</span>
+</div>
+<nav class="hidden md:flex gap-md items-center">
+<a class="font-label-md text-label-md text-primary border-b-2 border-primary pb-1" href="#">Dashboard</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Trade Flow</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Products</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Reports</a>
+</nav>
+<div class="flex items-center gap-sm">
+<button class="hover:bg-surface-container-low rounded-full p-2 focus:ring-2 focus:ring-primary outline-none transition-all">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="hover:bg-surface-container-low rounded-full p-2 focus:ring-2 focus:ring-primary outline-none transition-all" onclick="document.documentElement.classList.toggle('dark')">
+<span class="material-symbols-outlined" data-icon="contrast">contrast</span>
+</button>
+<button class="hover:bg-surface-container-low rounded-full p-2 focus:ring-2 focus:ring-primary outline-none transition-all">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="relative bg-mesh-dark text-white pt-xl pb-24 overflow-hidden">
+<!-- Background Elements -->
+<div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+<div class="absolute top-0 right-0 w-1/2 h-full opacity-20">
+<!-- Abstract World Map Placeholder -->
+<img class="w-full h-full object-contain world-map-svg" data-alt="A high-tech digital world map rendered in a minimalist dot-matrix pattern against a deep navy blue background. The dots glow with a soft emerald green light, creating a sense of global connectivity and data flow. The composition is sleek and professional, using a corporate color palette of navy, slate, and bright emerald. Soft cinematic lighting emphasizes the depth and scale of the global trade network." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNNudWtgb1fNbSSkdCBfjEvmMFZdjNXLL_apLf6hI7Cavtt9h6E3GHEX3WSbm6WdL_05W_DtvV7B3RwbLd8tZjD0aTwpCagP_4LkQpsI5VdxNe0ptJ9H_lL1rCyZVPvcCEK_G6om4JMJkpLv55Dkvbnip6Y3L3nu1uSwtLXmg0iwq6KVs9t_9463OVus9JeYH3WAktpv5aOzP9qwPdH14MLrT2C8dxaper_hYreJKGiX1l4Hrq3ijhhPi4phpKPiZsqzUvmOggmOM"/>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#0b1c30] to-transparent"></div>
+</div>
+<div class="max-w-[1440px] mx-auto px-margin relative z-10">
+<div class="grid lg:grid-cols-2 gap-xl items-center">
+<div>
+<span class="inline-block px-sm py-xs bg-secondary/20 text-secondary-fixed border border-secondary/30 rounded-full font-label-md text-label-md mb-md uppercase tracking-widest">
+                            Inteligência de Dados
+                        </span>
+<h1 class="font-display-lg text-display-lg mb-md text-white leading-tight">
+                            Inteligência Comercial em <span class="text-secondary-fixed">Tempo Real</span>
+</h1>
+<p class="font-body-lg text-body-lg text-primary-fixed-dim mb-lg max-w-xl">
+                            Transforme dados brutos das alfândegas em decisões estratégicas. Acesse métricas precisas de importação e exportação com a plataforma líder em análise de comércio exterior.
+                        </p>
+<div class="flex flex-wrap gap-md">
+<button class="bg-secondary text-white px-lg py-sm rounded-lg font-headline-sm hover:bg-secondary/90 transition-all shadow-lg flex items-center gap-sm">
+                                Começar Agora
+                                <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<button class="border border-outline-variant bg-white/5 backdrop-blur-sm text-white px-lg py-sm rounded-lg font-headline-sm hover:bg-white/10 transition-all">
+                                Agendar Demo
+                            </button>
+</div>
+</div>
+<!-- Hero Visual Card -->
+<div class="relative">
+<div class="glass-card rounded-xl p-md shadow-2xl relative overflow-hidden group">
+<div class="flex justify-between items-center mb-md border-b border-white/10 pb-sm">
+<h3 class="font-headline-sm text-headline-sm text-white flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary-fixed" data-icon="query_stats">query_stats</span>
+                                    Volume de Exportação 2024
+                                </h3>
+<span class="bg-secondary-container text-on-secondary-container px-sm py-1 rounded-full font-label-md">LIVE</span>
+</div>
+<div class="h-64 flex items-end justify-between gap-2 px-md">
+<div class="w-full bg-secondary-fixed opacity-30 rounded-t-sm h-[40%] group-hover:h-[45%] transition-all duration-700"></div>
+<div class="w-full bg-secondary-fixed opacity-50 rounded-t-sm h-[60%] group-hover:h-[65%] transition-all duration-700"></div>
+<div class="w-full bg-secondary-fixed opacity-70 rounded-t-sm h-[85%] group-hover:h-[90%] transition-all duration-700"></div>
+<div class="w-full bg-secondary-fixed rounded-t-sm h-[70%] group-hover:h-[75%] transition-all duration-700"></div>
+<div class="w-full bg-secondary-fixed opacity-60 rounded-t-sm h-[50%] group-hover:h-[55%] transition-all duration-700"></div>
+</div>
+<div class="mt-md flex justify-around font-label-md text-white/50 border-t border-white/10 pt-md">
+<span>JAN</span><span>FEV</span><span>MAR</span><span>ABR</span><span>MAI</span>
+</div>
+</div>
+<!-- Floating Stat Chip -->
+<div class="absolute -top-6 -right-6 bg-white p-sm rounded-lg shadow-xl text-primary animate-bounce">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-secondary" data-icon="trending_up">trending_up</span>
+<span class="font-headline-sm text-headline-sm">+12.4%</span>
+</div>
+<p class="text-on-surface-variant font-label-md">Crescimento Mensal</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Trusted By Section -->
+<section class="py-lg border-b border-outline-variant bg-surface">
+<div class="max-w-[1440px] mx-auto px-margin">
+<p class="text-center font-label-md text-on-surface-variant mb-lg uppercase tracking-[0.2em]">Confiança de Instituições Globais</p>
+<div class="flex flex-wrap justify-center items-center gap-xl opacity-60 grayscale hover:grayscale-0 transition-all">
+<span class="font-headline-sm font-bold text-outline">GOV.TRADE</span>
+<span class="font-headline-sm font-bold text-outline">BANCO NACIONAL</span>
+<span class="font-headline-sm font-bold text-outline">GLOBAL LOGISTICS</span>
+<span class="font-headline-sm font-bold text-outline">CUSTOMS MONITOR</span>
+<span class="font-headline-sm font-bold text-outline">AGRO INTELLIGENCE</span>
+</div>
+</div>
+</section>
+<!-- Features Bento Grid -->
+<section class="py-xl bg-surface-container-low">
+<div class="max-w-[1440px] mx-auto px-margin">
+<div class="text-center mb-xl">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-sm">Funcionalidades de Alta Performance</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl mx-auto">
+                        Projetado para analistas que exigem o máximo de precisão e velocidade no processamento de grandes volumes de dados de comércio exterior.
+                    </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Accuracy Card -->
+<div class="md:col-span-8 bg-white p-md rounded-xl border border-outline-variant shadow-sm hover:shadow-md transition-all group">
+<div class="flex gap-md items-start">
+<div class="bg-primary/5 p-sm rounded-lg group-hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-white" data-icon="verified">verified</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm mb-xs">Dados Oficiais e Auditados</h3>
+<p class="font-body-md text-on-surface-variant mb-md">
+                                    Nossas fontes são integradas diretamente com os registros alfandegários oficiais, garantindo 100% de conformidade com os dados do governo federal e órgãos internacionais.
+                                </p>
+<div class="grid grid-cols-2 gap-md mt-lg">
+<div class="p-sm bg-surface rounded-lg border-l-4 border-secondary">
+<p class="font-label-md text-on-surface-variant">Update Latency</p>
+<p class="font-headline-sm text-primary">0.5 Seconds</p>
+</div>
+<div class="p-sm bg-surface rounded-lg border-l-4 border-secondary">
+<p class="font-label-md text-on-surface-variant">Data Accuracy</p>
+<p class="font-headline-sm text-primary">99.99%</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Real-time Updates -->
+<div class="md:col-span-4 bg-primary-container text-white p-md rounded-xl shadow-lg relative overflow-hidden group">
+<div class="relative z-10">
+<span class="material-symbols-outlined text-secondary-fixed text-4xl mb-md" data-icon="update">update</span>
+<h3 class="font-headline-sm text-headline-sm mb-sm text-white">Monitoramento Live</h3>
+<p class="font-body-sm text-primary-fixed-dim">
+                                Receba alertas instantâneos sobre flutuações de preços e volumes em rotas comerciais críticas para o seu negócio.
+                            </p>
+</div>
+<div class="absolute -bottom-10 -right-10 w-32 h-32 bg-secondary opacity-10 rounded-full blur-3xl group-hover:scale-150 transition-transform"></div>
+</div>
+<!-- Regional Distribution -->
+<div class="md:col-span-4 bg-white p-md rounded-xl border border-outline-variant shadow-sm group">
+<span class="material-symbols-outlined text-primary mb-md" data-icon="map">map</span>
+<h3 class="font-headline-sm text-headline-sm mb-xs">Distribuição Regional</h3>
+<p class="font-body-sm text-on-surface-variant mb-md">
+                            Visualize o fluxo de mercadorias por estado, porto e zona franca com granularidade sem precedentes.
+                        </p>
+<img class="w-full h-auto mt-auto opacity-80 group-hover:opacity-100 transition-opacity" data-alt="A clean, minimalist vector graphic of a map showing regional economic distribution. Different zones are highlighted in shades of professional slate blue and emerald green. The style is modern and data-driven, similar to a high-end business intelligence dashboard. Lighting is flat and even, characteristic of contemporary UI design iconography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBu0OCTW8Pexl56kdXQodDLK3HhoNOjwGP0SHRNvgj-RhEv9B9OAcIFzV0PEUh_x9xvSWtUHhrvvVUVlPc3VEnJZ3lTDgPyxSD227e6gfrvBDnRVC1Wk_cqrXONCN03-0Tu7f6aVKJ5bgXwhLrZ-HPE8LNJdMc6tW57UNQeyyEN5a2nSBph9XYa2qGqnBYvGhToTNAP84Vfy07vxTIe6HALJZ0Ei-RvtkMJ2HUyIXCQeY9GQPSOCJsDu-m7D8-y14J4TYPjMFCMx8I"/>
+</div>
+<!-- Trade Flow Graphic -->
+<div class="md:col-span-8 bg-surface-container-highest p-md rounded-xl border border-outline-variant shadow-inner relative flex flex-col justify-between group">
+<div class="flex justify-between items-center mb-md">
+<h3 class="font-headline-sm text-headline-sm">Fluxo Comercial Global</h3>
+<div class="flex gap-xs">
+<div class="w-2 h-2 rounded-full bg-secondary animate-pulse"></div>
+<span class="font-label-md text-on-surface-variant uppercase">Ativo</span>
+</div>
+</div>
+<div class="flex-grow flex items-center justify-center p-lg">
+<!-- Abstract Trade Flow Placeholder -->
+<img class="max-w-full max-h-48 object-contain" data-alt="An abstract visualization of global trade flows using fluid, intertwining lines that connect major economic hubs. The lines vary in thickness to represent volume and glow in shades of vibrant emerald and electric blue. The background is a clean, neutral slate. The overall aesthetic is one of precision, momentum, and interconnectedness, rendered in a sharp, high-definition digital style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYHvENsCnXmy0Nbd-kiEF2X91RrWpVtGY_mKOAfYsOSBae99XuxnsTX-9oOEY2NYVj0ss4RWWMFOVt_yUdh-eeOafKTJ3Db6-59AXPMxorJTRqN8nVdEQRGUxTu-yE1XwqFMq2vrRk6y1avyit5mbYxus1NORSWGgJ9O9yEuvhKAb3bu4jO2G7ScG5gR5PWz_kND0KkhyDaNSXDVyVAHI3pTPG3lBWObf_1Jj9Hvg0PNTR8uT81PHi73qVt_SvaAluhxYptiyShDg"/>
+</div>
+<div class="flex justify-between border-t border-outline-variant pt-md mt-md">
+<div class="text-center">
+<p class="font-label-md text-on-surface-variant">Exports</p>
+<p class="font-headline-sm text-primary">$342B</p>
+</div>
+<div class="text-center">
+<p class="font-label-md text-on-surface-variant">Imports</p>
+<p class="font-headline-sm text-primary">$291B</p>
+</div>
+<div class="text-center">
+<p class="font-label-md text-on-surface-variant">Balance</p>
+<p class="font-headline-sm text-secondary">+$51B</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-xl bg-white">
+<div class="max-w-[1440px] mx-auto px-margin">
+<div class="bg-primary-container rounded-2xl p-xl flex flex-col items-center text-center text-white relative overflow-hidden">
+<!-- Background texture -->
+<div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 24px 24px;"></div>
+<h2 class="font-headline-lg text-headline-lg mb-md relative z-10">Pronto para liderar o mercado com dados reais?</h2>
+<p class="font-body-lg text-primary-fixed-dim mb-xl max-w-2xl relative z-10">
+                        Junte-se a mais de 5.000 analistas e empresas que já utilizam a COMEX STAT para monitorar a balança comercial brasileira em tempo real.
+                    </p>
+<div class="flex flex-col sm:flex-row gap-md relative z-10">
+<button class="bg-secondary text-white px-xl py-sm rounded-lg font-headline-sm hover:bg-secondary/90 transition-all shadow-lg">
+                            Criar Conta Gratuita
+                        </button>
+<button class="border border-white/20 text-white px-xl py-sm rounded-lg font-headline-sm hover:bg-white/10 transition-all">
+                            Falar com um Especialista
+                        </button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-auto border-t border-outline-variant bg-surface-container-low py-md px-lg">
+<div class="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-center gap-sm">
+<div class="flex flex-col gap-xs">
+<p class="font-body-sm text-body-sm text-on-surface">
+                    © 2024 COMEX STAT Intelligence Platform. Data sourced from Official Customs Records.
+                </p>
+<div class="flex gap-md">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Legal Notice</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Trade</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Methodology</a>
+</div>
+</div>
+<div class="flex gap-md items-center">
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary cursor-pointer" data-icon="language">language</span>
+<select class="bg-transparent border-none font-label-md text-on-surface-variant focus:ring-0 cursor-pointer">
+<option>Português (BR)</option>
+<option>English (US)</option>
+<option>Español</option>
+</select>
+</div>
+</div>
+</footer>
+<script>
+        // Simple micro-interaction for the header on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 20) {
+                header.classList.add('h-14', 'bg-white/90', 'backdrop-blur-md');
+                header.classList.remove('h-16', 'bg-surface');
+            } else {
+                header.classList.remove('h-14', 'bg-white/90', 'backdrop-blur-md');
+                header.classList.add('h-16', 'bg-surface');
+            }
+        });
+
+        // Initialize Material Icons weight
+        document.querySelectorAll('.material-symbols-outlined[data-weight="fill"]').forEach(icon => {
+            icon.style.fontVariationSettings = "'FILL' 1";
+        });
+    </script>
+</body></html>

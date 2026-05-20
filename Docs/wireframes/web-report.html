@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>COMEX STAT - Detailed Trade Report</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#dcd9db",
+                        "secondary-fixed-dim": "#4edea3",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-tertiary-container": "#75859d",
+                        "surface-container-low": "#f6f3f5",
+                        "secondary-fixed": "#6ffbbe",
+                        "primary-container": "#131b2e",
+                        "on-primary-fixed": "#131b2e",
+                        "error": "#ba1a1a",
+                        "on-primary-container": "#7c839b",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#1b1b1d",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#005236",
+                        "surface-container-high": "#eae7e9",
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "tertiary-container": "#0b1c30",
+                        "tertiary-fixed": "#d3e4fe",
+                        "primary-fixed": "#dae2fd",
+                        "outline": "#76777d",
+                        "outline-variant": "#c6c6cd",
+                        "surface": "#fcf8fa",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed": "#0b1c30",
+                        "on-secondary-container": "#00714d",
+                        "inverse-surface": "#303032",
+                        "inverse-on-surface": "#f3f0f2",
+                        "surface-variant": "#e4e2e4",
+                        "inverse-primary": "#bec6e0",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed": "#002113",
+                        "on-error-container": "#93000a",
+                        "surface-container-highest": "#e4e2e4",
+                        "tertiary": "#000000",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "primary": "#000000",
+                        "surface-variant-dim": "#e4e2e4",
+                        "on-surface-variant": "#45464d",
+                        "surface-tint": "#565e74",
+                        "on-background": "#1b1b1d",
+                        "surface-container": "#f0edef",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "background": "#fcf8fa",
+                        "surface-bright": "#fcf8fa",
+                        "secondary-container": "#6cf8bb"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "40px",
+                        "xs": "4px",
+                        "margin": "32px",
+                        "container-max-width": "1440px",
+                        "gutter": "24px",
+                        "xl": "64px",
+                        "md": "24px",
+                        "base": "8px",
+                        "sm": "12px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "data-mono": ["JetBrains Mono"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c6c6cd;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-screen w-64 z-50 flex flex-col h-full py-lg bg-surface border-r border-outline-variant">
+<div class="px-md mb-xl">
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight">COMEX STAT</h1>
+<p class="font-label-md text-label-md text-on-surface-variant opacity-70">Trade Intelligence</p>
+</div>
+<div class="flex-1 flex flex-col gap-xs">
+<a class="flex items-center gap-sm text-on-surface-variant font-medium px-md py-sm hover:bg-surface-container transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-sm text-primary font-bold border-r-4 border-secondary bg-surface-container-high px-md py-sm opacity-80 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant font-medium px-md py-sm hover:bg-surface-container transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="swap_horiz">swap_horiz</span>
+<span class="font-label-md text-label-md">Trade Flow</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant font-medium px-md py-sm hover:bg-surface-container transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-md text-label-md">Products</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant font-medium px-md py-sm hover:bg-surface-container transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="handshake">handshake</span>
+<span class="font-label-md text-label-md">Partners</span>
+</a>
+</div>
+<div class="px-md mt-auto pt-md border-t border-outline-variant">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-bold">JD</div>
+<div class="overflow-hidden">
+<p class="font-label-md text-label-md truncate">Analyst Account</p>
+<p class="text-[10px] text-on-surface-variant truncate">Institutional Access</p>
+</div>
+</div>
+</div>
+</nav>
+<!-- TopAppBar -->
+<header class="sticky top-0 w-full z-40 flex justify-between items-center px-lg h-16 ml-64 bg-surface border-b border-outline-variant shadow-sm backdrop-blur-md bg-opacity-90">
+<div class="flex items-center gap-md flex-1">
+<div class="relative w-full max-w-md">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant" data-icon="search">search</span>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-lg pl-10 pr-4 py-2 font-body-sm focus:ring-2 focus:ring-primary outline-none transition-all" placeholder="Search report metrics..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="hover:bg-surface-container-low rounded-full p-2 transition-all relative">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="hover:bg-surface-container-low rounded-full p-2 transition-all" onclick="document.documentElement.classList.toggle('dark')">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="contrast">contrast</span>
+</button>
+<button class="hover:bg-surface-container-low rounded-full p-2 transition-all">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Content Canvas -->
+<main class="ml-64 p-lg min-h-screen">
+<!-- Header Actions -->
+<div class="flex justify-between items-end mb-lg">
+<div>
+<nav class="flex gap-xs text-[10px] uppercase tracking-widest text-on-surface-variant mb-xs">
+<span>Reports</span>
+<span>/</span>
+<span class="text-primary font-bold">Detailed Customs Analysis</span>
+</nav>
+<h2 class="font-headline-lg text-headline-lg">Trade Balance Performance</h2>
+</div>
+<div class="flex gap-sm">
+<button class="px-md py-sm border border-outline-variant rounded-lg font-label-md flex items-center gap-xs hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined text-[18px]" data-icon="file_download">file_download</span> Export CSV
+                </button>
+<button class="px-md py-sm bg-primary text-on-primary rounded-lg font-label-md flex items-center gap-xs hover:opacity-90 transition-all">
+<span class="material-symbols-outlined text-[18px]" data-icon="share">share</span> Share Report
+                </button>
+</div>
+</div>
+<!-- Collapsible Filter Panel -->
+<section class="bg-surface rounded-xl border border-outline-variant mb-lg overflow-hidden transition-all duration-300" id="filterPanel">
+<div class="px-md py-sm bg-surface-container-low flex justify-between items-center cursor-pointer" onclick="toggleFilters()">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary" data-icon="filter_alt">filter_alt</span>
+<span class="font-headline-sm text-headline-sm">Advanced Filtering</span>
+<div class="flex gap-xs ml-md">
+<span class="bg-primary-fixed text-on-primary-fixed px-2 py-0.5 rounded text-[10px] font-bold">2024</span>
+<span class="bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded text-[10px] font-bold">All States</span>
+</div>
+</div>
+<span class="material-symbols-outlined transition-transform duration-300" data-icon="expand_more" id="filterChevron">expand_more</span>
+</div>
+<div class="grid grid-cols-3 gap-md p-md border-t border-outline-variant" id="filterContent">
+<div class="space-y-xs">
+<label class="font-label-md text-on-surface-variant block">Analysis Period</label>
+<select class="w-full bg-surface border border-outline-variant rounded-lg p-sm font-body-sm focus:ring-1 focus:ring-primary outline-none">
+<option>Current Year (2024)</option>
+<option>Last 12 Months</option>
+<option>Previous Year (2023)</option>
+<option>Custom Range</option>
+</select>
+</div>
+<div class="space-y-xs">
+<label class="font-label-md text-on-surface-variant block">Federative State (UF)</label>
+<select class="w-full bg-surface border border-outline-variant rounded-lg p-sm font-body-sm focus:ring-1 focus:ring-primary outline-none">
+<option>All Territories</option>
+<option>São Paulo (SP)</option>
+<option>Minas Gerais (MG)</option>
+<option>Paraná (PR)</option>
+</select>
+</div>
+<div class="space-y-xs">
+<label class="font-label-md text-on-surface-variant block">Economic Category</label>
+<select class="w-full bg-surface border border-outline-variant rounded-lg p-sm font-body-sm focus:ring-1 focus:ring-primary outline-none">
+<option>All Categories</option>
+<option>Agribusiness</option>
+<option>Manufacturing</option>
+<option>Extractive Industry</option>
+</select>
+</div>
+</div>
+</section>
+<!-- Summary Boxes & Map Grid -->
+<div class="grid grid-cols-12 gap-md mb-lg">
+<!-- Map Section -->
+<div class="col-span-8 bg-surface rounded-xl border border-outline-variant p-md flex flex-col min-h-[400px]">
+<div class="flex justify-between items-center mb-md">
+<h3 class="font-headline-sm text-headline-sm">Regional Concentration</h3>
+<div class="flex gap-xs">
+<button class="px-xs py-0.5 text-[10px] font-bold border border-primary rounded text-primary">Exports</button>
+<button class="px-xs py-0.5 text-[10px] font-bold border border-outline-variant rounded text-on-surface-variant">Imports</button>
+</div>
+</div>
+<div class="flex-1 bg-surface-container-low rounded-lg relative overflow-hidden group">
+<img class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" data-alt="A highly detailed thematic heat map of Brazil showing trade intensity across various states. The visual style is professional and minimalist, with a cool palette of deep blues and teals for the landmass and vibrant cyan highlights for high-activity regions like São Paulo and Minas Gerais. The lighting is soft and ambient, emphasizing a clean corporate analytics interface. The map is set against a subtle, light-grey textured background to maintain a high-density, authoritative trade intelligence aesthetic." data-location="Brazil" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJljvagsDVY4eWeI7r1GAZCU_4xySJcfkrwmvWe6W0DJbwEKQefqXrud-4sSQJYsKOzCFoRknFNbMse4cplfrzx736UW_jVYuRJdn61lfZVVacL3VJmhB_d_ebC1BaEC2JKlzgpCVrihXUlpZje0iu0sMzgIP2YOSwp8xjsct4ygONsNrX1aZtSroPqLvzEGbK3D6s3MOD3EPW0A3jGGeneGYA6El4utFg-J52MlFfTZfYhRabMVh2TSOyTkQ9D7UfP9GinwffbNk"/>
+<div class="absolute inset-0 flex items-center justify-center bg-primary-container/20 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="bg-surface text-primary px-md py-sm rounded-full font-bold shadow-lg flex items-center gap-xs">
+<span class="material-symbols-outlined" data-icon="open_in_full">open_in_full</span> Expand Analysis
+                         </button>
+</div>
+</div>
+</div>
+<!-- Summary Boxes Side Panel -->
+<div class="col-span-4 grid grid-cols-1 gap-md">
+<div class="bg-surface border border-outline-variant p-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="anchor">anchor</span>
+<div class="flex items-center gap-xs px-2 py-0.5 bg-secondary-container text-on-secondary-container rounded-full">
+<span class="material-symbols-outlined text-[14px]" data-icon="trending_up" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+<span class="text-[10px] font-bold">+12%</span>
+</div>
+</div>
+<div>
+<p class="font-label-md text-on-surface-variant">Active Ports</p>
+<h4 class="font-headline-md text-headline-md">142 <span class="text-body-sm font-normal text-on-surface-variant">Terminals</span></h4>
+</div>
+</div>
+<div class="bg-surface border border-outline-variant p-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="domain">domain</span>
+<div class="flex items-center gap-xs px-2 py-0.5 bg-error-container text-on-error-container rounded-full">
+<span class="material-symbols-outlined text-[14px]" data-icon="trending_down" style="font-variation-settings: 'FILL' 1;">trending_down</span>
+<span class="text-[10px] font-bold">-2.4%</span>
+</div>
+</div>
+<div>
+<p class="font-label-md text-on-surface-variant">Registered Companies</p>
+<h4 class="font-headline-md text-headline-md">28,491 <span class="text-body-sm font-normal text-on-surface-variant">Exporters</span></h4>
+</div>
+</div>
+<div class="bg-surface border border-outline-variant p-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="inventory_2">inventory_2</span>
+<span class="text-[10px] font-bold text-on-surface-variant bg-surface-container px-2 py-0.5 rounded-full">Stable</span>
+</div>
+<div>
+<p class="font-label-md text-on-surface-variant">Unique Products (NCM)</p>
+<h4 class="font-headline-md text-headline-md">4,802 <span class="text-body-sm font-normal text-on-surface-variant">SKUs</span></h4>
+</div>
+</div>
+<div class="bg-surface border border-outline-variant p-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="payments">payments</span>
+<div class="flex items-center gap-xs px-2 py-0.5 bg-error-container text-on-error-container rounded-full">
+<span class="text-[10px] font-bold">Deficit</span>
+</div>
+</div>
+<div>
+<p class="font-label-md text-on-surface-variant">Service Deficit</p>
+<h4 class="font-headline-md text-headline-md">-$4.2B <span class="text-body-sm font-normal text-on-surface-variant">USD</span></h4>
+</div>
+</div>
+</div>
+</div>
+<!-- Data Table Section -->
+<section class="bg-surface rounded-xl border border-outline-variant overflow-hidden shadow-sm">
+<div class="px-md py-md border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<h3 class="font-headline-sm text-headline-sm">Product Level Details (NCM-4)</h3>
+<div class="flex gap-sm items-center">
+<div class="flex rounded-lg overflow-hidden border border-outline-variant">
+<button class="px-sm py-1 bg-primary text-on-primary font-label-md">Value</button>
+<button class="px-sm py-1 bg-surface text-on-surface font-label-md border-l border-outline-variant">Volume</button>
+</div>
+<button class="material-symbols-outlined p-2 hover:bg-surface-container rounded-full" data-icon="more_vert">more_vert</button>
+</div>
+</div>
+<div class="overflow-x-auto custom-scrollbar">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-lowest">
+<th class="px-md py-sm font-label-md text-on-surface-variant uppercase tracking-wider sticky top-0 bg-surface-container-lowest border-b border-outline-variant">NCM Code</th>
+<th class="px-md py-sm font-label-md text-on-surface-variant uppercase tracking-wider sticky top-0 bg-surface-container-lowest border-b border-outline-variant">Product Description</th>
+<th class="px-md py-sm font-label-md text-on-surface-variant uppercase tracking-wider sticky top-0 bg-surface-container-lowest border-b border-outline-variant text-right">Value (US$ FOB)</th>
+<th class="px-md py-sm font-label-md text-on-surface-variant uppercase tracking-wider sticky top-0 bg-surface-container-lowest border-b border-outline-variant text-right">Weight (KG)</th>
+<th class="px-md py-sm font-label-md text-on-surface-variant uppercase tracking-wider sticky top-0 bg-surface-container-lowest border-b border-outline-variant text-right">Growth (%)</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-md py-md font-data-mono text-data-mono">1201</td>
+<td class="px-md py-md font-body-sm">Soya beans, whether or not broken</td>
+<td class="px-md py-md font-data-mono text-right">$14,203,110,402</td>
+<td class="px-md py-md font-data-mono text-right text-on-surface-variant">28.5B</td>
+<td class="px-md py-md text-right">
+<span class="bg-secondary-container text-on-secondary-container px-2 py-1 rounded text-[12px] font-bold">+18.4%</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-md py-md font-data-mono text-data-mono">2601</td>
+<td class="px-md py-md font-body-sm">Iron ores and concentrates, including roasted iron pyrites</td>
+<td class="px-md py-md font-data-mono text-right">$9,540,291,008</td>
+<td class="px-md py-md font-data-mono text-right text-on-surface-variant">112.1B</td>
+<td class="px-md py-md text-right">
+<span class="bg-secondary-container text-on-secondary-container px-2 py-1 rounded text-[12px] font-bold">+5.2%</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-md py-md font-data-mono text-data-mono">2709</td>
+<td class="px-md py-md font-body-sm">Petroleum oils and oils obtained from bituminous minerals, crude</td>
+<td class="px-md py-md font-data-mono text-right">$8,112,445,910</td>
+<td class="px-md py-md font-data-mono text-right text-on-surface-variant">15.4B</td>
+<td class="px-md py-md text-right">
+<span class="bg-error-container text-on-error-container px-2 py-1 rounded text-[12px] font-bold">-12.8%</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-md py-md font-data-mono text-data-mono">1001</td>
+<td class="px-md py-md font-body-sm">Wheat and meslin</td>
+<td class="px-md py-md font-data-mono text-right">$2,451,009,211</td>
+<td class="px-md py-md font-data-mono text-right text-on-surface-variant">6.2B</td>
+<td class="px-md py-md text-right">
+<span class="bg-secondary-container text-on-secondary-container px-2 py-1 rounded text-[12px] font-bold">+22.1%</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-md py-md font-data-mono text-data-mono">0201</td>
+<td class="px-md py-md font-body-sm">Meat of bovine animals, fresh or chilled</td>
+<td class="px-md py-md font-data-mono text-right">$1,988,334,012</td>
+<td class="px-md py-md font-data-mono text-right text-on-surface-variant">410.2M</td>
+<td class="px-md py-md text-right">
+<span class="bg-error-container text-on-error-container px-2 py-1 rounded text-[12px] font-bold">-4.5%</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-md py-sm bg-surface-container-lowest border-t border-outline-variant flex justify-between items-center">
+<p class="font-body-sm text-on-surface-variant">Showing 1-5 of 4,802 products</p>
+<div class="flex gap-xs">
+<button class="p-1 border border-outline-variant rounded hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="p-1 border border-outline-variant rounded hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="ml-64 flex flex-col md:flex-row justify-between items-center py-md px-lg gap-sm bg-surface-container-low border-t border-outline-variant w-full mt-auto">
+<p class="font-body-sm text-on-surface-variant">© 2024 COMEX STAT Intelligence Platform. Data sourced from Official Customs Records.</p>
+<div class="flex gap-md">
+<a class="font-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Legal Notice</a>
+<a class="font-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Trade</a>
+<a class="font-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Methodology</a>
+</div>
+</footer>
+<script>
+        function toggleFilters() {
+            const content = document.getElementById('filterContent');
+            const chevron = document.getElementById('filterChevron');
+            const panel = document.getElementById('filterPanel');
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                chevron.style.transform = 'rotate(180deg)';
+                panel.classList.remove('mb-lg');
+                panel.classList.add('mb-md');
+            } else {
+                content.classList.add('hidden');
+                chevron.style.transform = 'rotate(0deg)';
+                panel.classList.remove('mb-md');
+                panel.classList.add('mb-lg');
+            }
+        }
+        
+        // Initial state
+        document.addEventListener('DOMContentLoaded', () => {
+            // Uncomment to start collapsed
+            // toggleFilters();
+        });
+    </script>
+</body></html>

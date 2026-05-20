@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>COMEX STAT - Trade Intelligence Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-dim": "#dcd9db",
+                    "secondary-fixed-dim": "#4edea3",
+                    "primary-fixed-dim": "#bec6e0",
+                    "on-tertiary-container": "#75859d",
+                    "surface-container-low": "#f6f3f5",
+                    "secondary-fixed": "#6ffbbe",
+                    "primary-container": "#131b2e",
+                    "on-primary-fixed": "#131b2e",
+                    "error": "#ba1a1a",
+                    "on-primary-container": "#7c839b",
+                    "on-tertiary": "#ffffff",
+                    "on-surface": "#1b1b1d",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed-variant": "#005236",
+                    "surface-container-high": "#eae7e9",
+                    "tertiary-fixed-dim": "#b7c8e1",
+                    "tertiary-container": "#0b1c30",
+                    "tertiary-fixed": "#d3e4fe",
+                    "primary-fixed": "#dae2fd",
+                    "outline": "#76777d",
+                    "outline-variant": "#c6c6cd",
+                    "surface": "#fcf8fa",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary-fixed": "#0b1c30",
+                    "on-secondary-container": "#00714d",
+                    "inverse-surface": "#303032",
+                    "inverse-on-surface": "#f3f0f2",
+                    "surface-variant": "#e4e2e4",
+                    "inverse-primary": "#bec6e0",
+                    "on-primary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-secondary-fixed": "#002113",
+                    "on-error-container": "#93000a",
+                    "surface-container-highest": "#e4e2e4",
+                    "tertiary": "#000000",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "primary": "#000000",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary": "#006c49",
+                    "on-surface-variant": "#45464d",
+                    "surface-tint": "#565e74",
+                    "on-background": "#1b1b1d",
+                    "surface-container": "#f0edef",
+                    "on-tertiary-fixed-variant": "#38485d",
+                    "background": "#fcf8fa",
+                    "surface-bright": "#fcf8fa",
+                    "secondary-container": "#6cf8bb"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "lg": "40px",
+                    "xs": "4px",
+                    "margin": "32px",
+                    "container-max-width": "1440px",
+                    "gutter": "24px",
+                    "xl": "64px",
+                    "md": "24px",
+                    "base": "8px",
+                    "sm": "12px"
+            },
+            "fontFamily": {
+                    "display-lg": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "data-mono": ["JetBrains Mono"]
+            },
+            "fontSize": {
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "data-mono": ["14px", {"lineHeight": "20px", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .chart-container { position: relative; width: 100%; height: 100%; }
+        .sparkline { stroke-width: 2; fill: none; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #c6c6cd; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background font-body-md text-on-background min-h-screen flex flex-col">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-screen w-64 z-50 bg-surface border-r border-outline-variant flex flex-col h-full py-lg">
+<div class="px-md mb-xl">
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight">COMEX STAT</h1>
+<p class="font-label-md text-label-md text-on-surface-variant mt-xs">Trade Intelligence</p>
+</div>
+<nav class="flex-grow">
+<ul class="space-y-xs">
+<li>
+<a class="flex items-center gap-sm text-primary font-bold border-r-4 border-secondary bg-surface-container-high px-md py-sm transition-all opacity-80 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-sm text-on-surface-variant font-medium px-md py-sm hover:bg-surface-container hover:text-on-surface transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="swap_horiz">swap_horiz</span>
+<span class="font-label-md text-label-md">Trade Flow</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-sm text-on-surface-variant font-medium px-md py-sm hover:bg-surface-container hover:text-on-surface transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-md text-label-md">Products</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-sm text-on-surface-variant font-medium px-md py-sm hover:bg-surface-container hover:text-on-surface transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="handshake">handshake</span>
+<span class="font-label-md text-label-md">Partners</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-sm text-on-surface-variant font-medium px-md py-sm hover:bg-surface-container hover:text-on-surface transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+</li>
+</ul>
+</nav>
+<div class="mt-auto px-md pt-md border-t border-outline-variant">
+<div class="flex items-center gap-sm p-sm rounded-lg bg-surface-container-low">
+<img alt="COMEX STAT Logo" class="w-10 h-10 rounded-full border border-outline-variant" data-alt="A professional portrait of a senior trade analyst in a modern office environment. He is wearing a crisp white shirt and a dark grey blazer, looking confidently at the camera. The background is a soft-focus corporate office with minimalist furniture and cool blue lighting, reflecting an atmosphere of institutional authority and expertise." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAwGaNVX6K-UW5IVCBsp6OsF1279SB6hTUqz25kMtV5JD-NTcnr75rqZV7duCrr1QazUStoaEQu18U1JBa8XAdFkQo1xboHM8zNRkV6vCLsDAB2mYH6Nn2FjqrrN9yvHov-lBRHBFfFMBPIySrNNgPGaFCJ2OgfsFzf9c3OViEpcEMmE1SBy0TP2l4Ld-TM49aZKsDuGOnGLqKm38e9dJ0H3ETYfQd4wW5-pPtAO0NH80V7knDaO1ubfjAdrFukqlEZEUlSD66F70"/>
+<div>
+<p class="font-label-md text-label-md text-on-surface font-bold">Admin User</p>
+<p class="text-[10px] text-on-surface-variant">Economy Ministry</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopAppBar -->
+<header class="sticky top-0 w-full z-40 bg-surface border-b border-outline-variant shadow-sm flex justify-between items-center px-lg h-16 ml-64 max-w-[calc(100%-16rem)]">
+<div class="flex items-center gap-md flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]" data-icon="search">search</span>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-full py-2 pl-10 pr-4 font-body-sm text-body-sm focus:ring-2 focus:ring-primary outline-none transition-all" placeholder="Search markets, HS codes, or countries..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<button class="hover:bg-surface-container-low rounded-full p-2 transition-all">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+</button>
+<button class="hover:bg-surface-container-low rounded-full p-2 transition-all">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="contrast">contrast</span>
+</button>
+<button class="hover:bg-surface-container-low rounded-full p-2 transition-all">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-64 p-lg flex-grow space-y-gutter">
+<!-- Welcome Header -->
+<div class="flex justify-between items-end mb-md">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">External Trade Overview</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Annual Consolidated Data - Customs Records 2023</p>
+</div>
+<div class="flex gap-sm">
+<button class="bg-surface-container-high text-on-surface px-sm py-2 rounded-lg font-label-md text-label-md flex items-center gap-xs hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="calendar_today">calendar_today</span>
+                    Year 2023
+                </button>
+<button class="bg-primary text-on-primary px-sm py-2 rounded-lg font-label-md text-label-md flex items-center gap-xs hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[18px]" data-icon="file_download">file_download</span>
+                    Export Data
+                </button>
+</div>
+</div>
+<!-- High-Level Metric Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Exports -->
+<div class="bg-surface-container-lowest p-md rounded-lg border border-outline-variant shadow-[0px_4px_12px_rgba(0,0,0,0.05)] flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-xs">Total Exports (FOB)</p>
+<h3 class="font-headline-lg text-headline-lg text-primary tracking-tight">US$ 339.7B</h3>
+</div>
+<div class="bg-secondary-container text-on-secondary-container px-xs py-1 rounded flex items-center gap-xs font-label-md text-label-md">
+<span class="material-symbols-outlined text-[14px]" data-icon="trending_up">trending_up</span>
+                        1.7%
+                    </div>
+</div>
+<div class="h-16 mt-md">
+<svg class="w-full h-full" viewbox="0 0 100 30">
+<path class="sparkline stroke-secondary" d="M0,25 Q10,15 20,20 T40,10 T60,18 T80,5 T100,12" fill="none"></path>
+</svg>
+</div>
+</div>
+<!-- Imports -->
+<div class="bg-surface-container-lowest p-md rounded-lg border border-outline-variant shadow-[0px_4px_12px_rgba(0,0,0,0.05)] flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-xs">Total Imports (FOB)</p>
+<h3 class="font-headline-lg text-headline-lg text-primary tracking-tight">US$ 240.8B</h3>
+</div>
+<div class="bg-error-container text-on-error-container px-xs py-1 rounded flex items-center gap-xs font-label-md text-label-md">
+<span class="material-symbols-outlined text-[14px]" data-icon="trending_down">trending_down</span>
+                        11.7%
+                    </div>
+</div>
+<div class="h-16 mt-md">
+<svg class="w-full h-full" viewbox="0 0 100 30">
+<path class="sparkline stroke-error" d="M0,5 Q15,20 30,10 T50,25 T70,15 T100,28" fill="none"></path>
+</svg>
+</div>
+</div>
+<!-- Trade Balance -->
+<div class="bg-surface-container-lowest p-md rounded-lg border border-outline-variant shadow-[0px_4px_12px_rgba(0,0,0,0.05)] flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-xs">Trade Balance</p>
+<h3 class="font-headline-lg text-headline-lg text-primary tracking-tight">US$ 98.9B</h3>
+</div>
+<div class="bg-secondary-container text-on-secondary-container px-xs py-1 rounded flex items-center gap-xs font-label-md text-label-md">
+<span class="material-symbols-outlined text-[14px]" data-icon="trending_up">trending_up</span>
+                        60.6%
+                    </div>
+</div>
+<div class="h-16 mt-md">
+<svg class="w-full h-full" viewbox="0 0 100 30">
+<path class="sparkline stroke-secondary" d="M0,28 L10,25 L20,20 L30,22 L40,15 L50,18 L60,10 L70,12 L80,5 L90,8 L100,2" fill="none"></path>
+</svg>
+</div>
+</div>
+</div>
+<!-- Large Chart: Evolução do Comércio -->
+<section class="bg-surface-container-lowest rounded-lg border border-outline-variant shadow-[0px_4px_12px_rgba(0,0,0,0.05)] overflow-hidden">
+<div class="p-md border-b border-outline-variant flex justify-between items-center">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Evolução do Comércio (Monthly)</h3>
+<div class="flex gap-xs">
+<button class="px-3 py-1 rounded border border-primary bg-primary text-on-primary text-[11px] font-bold">Line</button>
+<button class="px-3 py-1 rounded border border-outline-variant text-on-surface-variant text-[11px] font-bold hover:bg-surface-container">Bar</button>
+</div>
+</div>
+<div class="p-lg h-[400px] relative">
+<!-- Abstract visual of a line chart for UI demonstration -->
+<div class="absolute inset-0 p-lg flex flex-col">
+<div class="flex-grow flex items-end justify-between border-l border-b border-outline-variant pb-xs pl-xs">
+<!-- Chart Lines Simulation -->
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 1000 300">
+<!-- Background Grid -->
+<line stroke="#e4e2e4" stroke-dasharray="4" x1="0" x2="1000" y1="75" y2="75"></line>
+<line stroke="#e4e2e4" stroke-dasharray="4" x1="0" x2="1000" y1="150" y2="150"></line>
+<line stroke="#e4e2e4" stroke-dasharray="4" x1="0" x2="1000" y1="225" y2="225"></line>
+<!-- Main Data Line (Exports) -->
+<path class="opacity-90" d="M0,250 L83,230 L166,210 L249,190 L332,150 L415,180 L498,140 L581,110 L664,130 L747,90 L830,70 L913,50 L1000,40" fill="none" stroke="#000000" stroke-width="3"></path>
+<!-- Secondary Data Line (Imports) -->
+<path class="opacity-60" d="M0,280 L83,270 L166,240 L249,250 L332,220 L415,230 L498,210 L581,220 L664,190 L747,200 L830,180 L913,190 L1000,170" fill="none" stroke="#006c49" stroke-dasharray="8,4" stroke-width="2"></path>
+</svg>
+</div>
+<div class="flex justify-between text-[10px] font-data-mono text-on-surface-variant mt-sm px-xs">
+<span>JAN</span><span>FEB</span><span>MAR</span><span>APR</span><span>MAY</span><span>JUN</span><span>JUL</span><span>AUG</span><span>SEP</span><span>OCT</span><span>NOV</span><span>DEC</span>
+</div>
+</div>
+<!-- Legend -->
+<div class="absolute top-md right-md flex flex-col gap-xs">
+<div class="flex items-center gap-xs">
+<div class="w-3 h-1 bg-primary"></div>
+<span class="text-[11px] font-medium">Exports</span>
+</div>
+<div class="flex items-center gap-xs">
+<div class="w-3 h-1 bg-secondary opacity-60"></div>
+<span class="text-[11px] font-medium">Imports</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Lower Grid: Partners and Regional Dist -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter">
+<!-- Top Partners Table -->
+<section class="bg-surface-container-lowest rounded-lg border border-outline-variant shadow-[0px_4px_12px_rgba(0,0,0,0.05)] flex flex-col">
+<div class="p-md border-b border-outline-variant flex justify-between items-center">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Major Trading Partners</h3>
+<button class="text-secondary font-label-md text-label-md hover:underline transition-all">View All</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low font-label-md text-label-md text-on-surface-variant">
+<tr>
+<th class="px-md py-sm">Partner</th>
+<th class="px-md py-sm">Export Value</th>
+<th class="px-md py-sm">Import Value</th>
+<th class="px-md py-sm text-right">Trend</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm text-on-surface">
+<tr class="border-b border-outline-variant hover:bg-surface-container transition-colors h-[40px]">
+<td class="px-md py-sm flex items-center gap-xs">
+<span class="w-4 h-3 bg-surface-variant rounded-sm overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up of a stylized Chinese flag with its five yellow stars on a red field, draped as a high-quality fabric texture. The image focuses on the craftsmanship of the flag material under dramatic studio lighting, emphasizing China's significant role in global trade." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0FYwgqk7LCdGGl1uGtPxg2g-eOWS10bF6AIdbhT_Lfk20p1uUmRDldGt52RwjifynJTgvv542oshB5iX4bfpuvYBJ8dMteP5_KVEpYUzDB6E2drhIhN4I-po9RfCueWLGZe49Jd8yOU8M7MFvYgNUeBf8a6MmNkIpog62IURNKRaUNMCJ14G-k9VzTS_9kYGb7luzOFCOqyuhLAyULMfM6EydwRhF1EI6iiX6u39MUVJw36rCBvB5zOvstPa4ENSA-EW5-MFnyfw"/>
+</span>
+                                    China
+                                </td>
+<td class="px-md py-sm font-data-mono">US$ 104.3B</td>
+<td class="px-md py-sm font-data-mono">US$ 53.2B</td>
+<td class="px-md py-sm text-right text-secondary">
+<span class="material-symbols-outlined text-[16px] align-middle" data-icon="arrow_drop_up">arrow_drop_up</span>
+                                    8.4%
+                                </td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container transition-colors h-[40px]">
+<td class="px-md py-sm flex items-center gap-xs">
+<span class="w-4 h-3 bg-surface-variant rounded-sm overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Macro detail of the United States flag, specifically focusing on the stars and stripes pattern. The lighting is crisp and highlights the textile weave, conveying a sense of institutional stability and industrial power, fitting for a top trade partner visualization." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOTkLvQBMx37DYtamFubFE1cQhtCLOJMCP6gAZIROvbS0tRfRYPNB1UZ3a0AMIKjBFsDtLAQ4T80sCwxUnBx3G1otmKExs7VHnl5d566g18UA48oZ-cJmFqSP9iZM73yA8xlWu8qRmtkY6sLmhQc7aG_XdIqU72PUM3gnWnXKaSbAg0ZFgfascbF-z4m6pt1Xc4NaICsoRoEJlEPOOLddOnL3QWx_PRUMQPLtL7FUgI8RdjtNpf6TRSN8DkBCHAhluVWbUJjzVEb0"/>
+</span>
+                                    United States
+                                </td>
+<td class="px-md py-sm font-data-mono">US$ 36.9B</td>
+<td class="px-md py-sm font-data-mono">US$ 38.0B</td>
+<td class="px-md py-sm text-right text-error">
+<span class="material-symbols-outlined text-[16px] align-middle" data-icon="arrow_drop_down">arrow_drop_down</span>
+                                    2.1%
+                                </td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container transition-colors h-[40px]">
+<td class="px-md py-sm flex items-center gap-xs">
+<span class="w-4 h-3 bg-surface-variant rounded-sm overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A detailed representation of the Argentinian flag, with its light blue and white stripes and the Sun of May in the center. The image is clean and bright, symbolizing the close regional trade relations and economic partnership within South America." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwrl032fGjgfBOK-7BrR6wmKSnA5-kx-K3XUC6jheBreiDHvh_fNR-hluwcsB3ws5YKvlF-W_C9mepZ7OiRF8Xg4ePAsDl80VbCPQ61A47LaYcpLg8OO4E88NnXSOVhSyVHkXo-cNeNI7zf4kJYmXpUyedSL9W7j6ZCS704nnn_BD3n_mHh8nVZFs9kWS3YLO2QNLf4zsvJcUMH7z4_p2A8URXmFr1aKjmRg5WbjUv66oxs9fRxlHsQu7J5xd1qiAGwjYP84FIr50"/>
+</span>
+                                    Argentina
+                                </td>
+<td class="px-md py-sm font-data-mono">US$ 16.7B</td>
+<td class="px-md py-sm font-data-mono">US$ 11.9B</td>
+<td class="px-md py-sm text-right text-secondary">
+<span class="material-symbols-outlined text-[16px] align-middle" data-icon="arrow_drop_up">arrow_drop_up</span>
+                                    1.2%
+                                </td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors h-[40px]">
+<td class="px-md py-sm flex items-center gap-xs">
+<span class="w-4 h-3 bg-surface-variant rounded-sm overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="The flag of the Netherlands shown in a high-density flat design. The red, white, and blue bands are perfectly aligned, representing the efficiency and significance of Dutch ports as a gateway for international trade into Europe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAC6xlFRZBW6htLv55Pv3o1troSd-fZd0PbPOaVj_mZN50DA36hBezefm4b1pzrJ6o4ruAUO8yyxf50wODxq_vYZsKqRzKskzN7fKNZWRL4T9X-A4f_rymjqbTB_7wP8SDfMNC4bx8CMiF5A4F_ATO38GiXgrkmwI5iPb3hqD_uCguodLtnu1LlYwR00TACxlqRi3uwJqTSzNDKMIpesizarKyURXQT1f-gLMKDQ-krw3vo-pqr2N1LY_2LefH86B0ZWGyJ4XPgUlY"/>
+</span>
+                                    Netherlands
+                                </td>
+<td class="px-md py-sm font-data-mono">US$ 12.1B</td>
+<td class="px-md py-sm font-data-mono">US$ 2.4B</td>
+<td class="px-md py-sm text-right text-secondary">
+<span class="material-symbols-outlined text-[16px] align-middle" data-icon="arrow_drop_up">arrow_drop_up</span>
+                                    12.8%
+                                </td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Regional Distribution Chart -->
+<section class="bg-surface-container-lowest rounded-lg border border-outline-variant shadow-[0px_4px_12px_rgba(0,0,0,0.05)] flex flex-col">
+<div class="p-md border-b border-outline-variant flex justify-between items-center">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Regional Share (%)</h3>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer" data-icon="info">info</span>
+</div>
+<div class="p-lg flex-grow flex flex-col justify-center gap-md">
+<!-- Custom Bar Chart Visualization -->
+<div class="space-y-sm">
+<div class="flex flex-col gap-1">
+<div class="flex justify-between font-label-md text-label-md">
+<span>Asia (Excl. Middle East)</span>
+<span>45.2%</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 45.2%"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between font-label-md text-label-md">
+<span>European Union</span>
+<span>15.8%</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary opacity-80" style="width: 15.8%"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between font-label-md text-label-md">
+<span>North America</span>
+<span>14.1%</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary opacity-60" style="width: 14.1%"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between font-label-md text-label-md">
+<span>South America (MERCOSUR)</span>
+<span>12.4%</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary" style="width: 12.4%"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between font-label-md text-label-md">
+<span>Middle East &amp; Africa</span>
+<span>12.5%</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-outline-variant" style="width: 12.5%"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer -->
+<footer class="ml-64 bg-surface-container-low border-t border-outline-variant w-full mt-auto flex flex-col md:flex-row justify-between items-center py-md px-lg gap-sm">
+<p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 COMEX STAT Intelligence Platform. Data sourced from Official Customs Records.</p>
+<div class="flex gap-md">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Legal Notice</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Trade</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Methodology</a>
+</div>
+</footer>
+<script>
+        // Micro-interactions and simple data animation
+        document.querySelectorAll('.sparkline').forEach((path, index) => {
+            const length = path.getTotalLength();
+            path.style.strokeDasharray = length;
+            path.style.strokeDashoffset = length;
+            setTimeout(() => {
+                path.style.transition = 'stroke-dashoffset 1.5s ease-out';
+                path.style.strokeDashoffset = '0';
+            }, 100 * (index + 1));
+        });
+
+        // Search bar focus effect
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('ring-2', 'ring-primary');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('ring-2', 'ring-primary');
+        });
+    </script>
+</body></html>
