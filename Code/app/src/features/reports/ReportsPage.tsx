@@ -106,31 +106,6 @@ export function ReportsPage() {
           </div>
         </div>
 
-        <section className="reports-chart-card">
-          <div className="reports-chart-card__header">
-            <h3>Evolução do Comércio (Monthly)</h3>
-            <div className="segmented-control">
-              <button className="segmented-control__button segmented-control__button--active" type="button">Line</button>
-              <button className="segmented-control__button" type="button">Bar</button>
-            </div>
-          </div>
-
-          <div className="reports-chart-card__body">
-            <svg className="reports-line-chart" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true">
-              <line x1="0" x2="1000" y1="75" y2="75" />
-              <line x1="0" x2="1000" y1="150" y2="150" />
-              <line x1="0" x2="1000" y1="225" y2="225" />
-              <path d="M0,250 L83,230 L166,210 L249,190 L332,150 L415,180 L498,140 L581,110 L664,130 L747,90 L830,70 L913,50 L1000,40" />
-              <path className="reports-line-chart__secondary" d="M0,280 L83,270 L166,240 L249,250 L332,220 L415,230 L498,210 L581,220 L664,190 L747,200 L830,180 L913,190 L1000,170" />
-            </svg>
-
-            <div className="reports-line-chart__legend">
-              <div><span className="legend-swatch legend-swatch--primary" />Exports</div>
-              <div><span className="legend-swatch legend-swatch--secondary" />Imports</div>
-            </div>
-          </div>
-        </section>
-
         <div className="dashboard-grid dashboard-grid--lower reports-grid--lower">
           <section className="reports-table-card">
             <div className="reports-card-header">

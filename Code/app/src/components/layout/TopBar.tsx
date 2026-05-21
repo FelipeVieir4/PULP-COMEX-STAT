@@ -1,4 +1,7 @@
+import { LastUpdatedBadge } from '../ui/LastUpdatedBadge';
+import { ExchangeRateBadge } from '../ui/ExchangeRateBadge';
 import { ThemeSwitcher } from '../theme/ThemeSwitcher';
+
 export function TopBar() {
   return (
     <header className="dashboard-topbar">
@@ -6,6 +9,9 @@ export function TopBar() {
         <span className="material-symbols-outlined">search</span>
         <input type="search" placeholder="Search markets, HS codes, or countries..." aria-label="Pesquisar dados" />
       </div>
+
+      <ExchangeRateBadge />
+      <LastUpdatedBadge />
 
       <div className="dashboard-topbar__actions">
         <button type="button" className="icon-button" aria-label="Notificações">
