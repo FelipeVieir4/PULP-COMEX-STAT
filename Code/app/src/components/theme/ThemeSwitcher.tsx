@@ -1,29 +1,29 @@
 import { useTheme } from './ThemeProvider';
-import { classNames } from '../../lib/classNames';
-import type { ThemeMode } from '../../types/domain';
-
-const themeOptions: Array<{ value: ThemeMode; label: string }> = [
-  { value: 'light', label: 'Claro' },
-  { value: 'dark', label: 'Escuro' },
-  { value: 'system', label: 'Sistema' },
-];
 
 export function ThemeSwitcher() {
-  const { theme, setTheme } = useTheme();
+  const { theme, resolvedTheme, setTheme } = useTheme();
+
+  function toggleTheme() {
+    // If currently using system default, toggle based on resolved theme
+    if (theme === 'system') {
+      setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
+      return;
+    }
+
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  }
 
   return (
-    <div className="theme-switcher" role="group" aria-label="Selecionar tema">
-      {themeOptions.map((option) => (
-        <button
-          key={option.value}
-          type="button"
-          className={classNames('theme-switcher__button', theme === option.value && 'theme-switcher__button--active')}
-          onClick={() => setTheme(option.value)}
-          aria-pressed={theme === option.value}
-        >
-          {option.label}
-        </button>
-      ))}
+    <div className="theme-switcher">
+      <button
+        type="button"
+        className="icon-button"
+        aria-label="Alternar tema"
+        title={theme === 'system' ? `Padrão do sistema (${resolvedTheme})` : `Tema: ${theme}`}
+        onClick={toggleTheme}
+      >
+        <span className="material-symbols-outlined">{resolvedTheme === 'dark' ? 'dark_mode' : 'light_mode'}</span>
+      </button>
     </div>
   );
 }

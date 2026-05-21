@@ -10,13 +10,13 @@ export function HomePage() {
         <section className="hero">
           <div className="hero__content">
             <span className="hero__badge">Inteligência de Dados</span>
-            <h1>Inteligência Comercial em Tempo Real para o mercado de celulose</h1>
+            <h1>Inteligência Comercial para o mercado de celulose</h1>
             <p className="hero__lead">
-              Transforme os dados públicos do COMEX STAT em uma experiência clara, modular e pronta para expansão global.
+              Entenda o mercado de celulose como nunca antes: dados oficiais, monitoramento live e insights regionais para decisões estratégicas.
             </p>
 
             <div className="hero__actions">
-              <Link className="button button--primary" to="/dashboard">
+              <Link className="button button--primary" to="/login">
                 Começar Agora
               </Link>
               <Link className="button button--ghost" to="/reports">
@@ -29,7 +29,7 @@ export function HomePage() {
             <div className="hero-visual-card__header">
               <h3>
                 <span className="material-symbols-outlined">query_stats</span>
-                Volume de Exportação 2024
+                Volume de Exportação  
               </h3>
               <span className="status-pill status-pill--live">LIVE</span>
             </div>
@@ -61,13 +61,12 @@ export function HomePage() {
         </section>
 
         <section className="trusted-strip">
-          <p>Confiança de Instituições Globais</p>
+          <p>Confiança de Instituições de Renome</p>
           <div className="trusted-strip__logos">
-            <span>GOV.TRADE</span>
-            <span>BANCO NACIONAL</span>
-            <span>GLOBAL LOGISTICS</span>
-            <span>CUSTOMS MONITOR</span>
-            <span>AGRO INTELLIGENCE</span>
+            <span>GOV</span>
+            <span>MDIC</span>
+            <span>BNDES</span>
+            <span>SUN MONITOR</span>
           </div>
         </section>
 

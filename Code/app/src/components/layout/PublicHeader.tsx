@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { publicNav } from '../../config/navigation';
 import { ThemeSwitcher } from '../theme/ThemeSwitcher';
 
@@ -6,25 +6,28 @@ export function PublicHeader() {
   return (
     <header className="landing-header">
       <div className="landing-header__brand">
-        <span className="landing-header__title">PULP COMEX STAT</span>
+        <Link to="/" className="landing-header__title">PULP COMEX STAT</Link>
       </div>
 
       <nav className="landing-header__nav" aria-label="Navegação principal">
         {publicNav.map((item, index) => (
-          <Link key={`${item.label}-${index}`} to={item.href} className={index === 0 ? 'landing-header__link landing-header__link--active' : 'landing-header__link'}>
+          <NavLink
+            key={`${item.label}-${index}`}
+            to={item.href}
+            className={({ isActive }) =>
+              `landing-header__link${isActive ? ' landing-header__link--active' : ''}`
+            }
+          >
             {item.label}
-          </Link>
+          </NavLink>
         ))}
       </nav>
 
       <div className="landing-header__actions">
-        <button type="button" className="icon-button" aria-label="Notificações">
-          <span className="material-symbols-outlined">notifications</span>
-        </button>
         <ThemeSwitcher />
-        <button type="button" className="icon-button" aria-label="Conta">
-          <span className="material-symbols-outlined">account_circle</span>
-        </button>
+        <Link to="/login" className="button button--primary" style={{ fontSize: '0.85rem', minHeight: 36, padding: '0 16px' }}>
+          Entrar
+        </Link>
       </div>
     </header>
   );

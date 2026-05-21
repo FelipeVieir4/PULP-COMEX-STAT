@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { AppShell } from '../../components/layout/AppShell';
 import { Panel } from '../../components/ui/Panel';
+import { reportRows } from '../../data/mockReports';
 
 const summaryCards = [
   { icon: 'anchor', label: 'Active Ports', value: '142', suffix: 'Terminals', trend: '+12%', direction: 'up' },

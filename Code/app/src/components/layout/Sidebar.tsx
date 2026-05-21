@@ -1,7 +1,14 @@
 import { NavLink } from 'react-router-dom';
 import { shellNav } from '../../config/navigation';
+import { useAuth } from '../../context/AuthContext';
 
 export function Sidebar() {
+  const { user, signOut } = useAuth();
+
+  const initials = user?.email
+    ? user.email.slice(0, 2).toUpperCase()
+    : 'US';
+
   return (
     <aside className="dashboard-sidebar">
       <div className="dashboard-sidebar__brand">
@@ -14,9 +21,12 @@ export function Sidebar() {
           <NavLink
             key={`${item.label}-${index}`}
             to={item.href}
-            className={({ isActive }) => `dashboard-sidebar__link ${isActive ? 'dashboard-sidebar__link--active' : ''}`}
+            end={item.href === '/dashboard'}
+            className={({ isActive }) =>
+              `dashboard-sidebar__link${isActive ? ' dashboard-sidebar__link--active' : ''}`
+            }
           >
-            <span className="material-symbols-outlined">{index === 0 ? 'dashboard' : index === 1 ? 'swap_horiz' : index === 2 ? 'inventory_2' : index === 3 ? 'handshake' : 'assessment'}</span>
+            <span className="material-symbols-outlined">{item.icon}</span>
             <span>
               <strong>{item.label}</strong>
               <small>{item.description}</small>
@@ -27,11 +37,22 @@ export function Sidebar() {
 
       <div className="dashboard-sidebar__footer">
         <div className="dashboard-sidebar__profile">
-          <div className="dashboard-sidebar__avatar">JD</div>
-          <div>
-            <strong>Analyst Account</strong>
-            <p>Institutional Access</p>
+          <div className="dashboard-sidebar__avatar">{initials}</div>
+          <div style={{ minWidth: 0, flex: 1 }}>
+            <strong style={{ display: 'block', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: '0.85rem' }}>
+              {user?.email ?? 'Conta'}
+            </strong>
+            <p style={{ margin: '2px 0 0', fontSize: '0.75rem' }}>Acesso Institucional</p>
           </div>
+          <button
+            type="button"
+            className="icon-button"
+            style={{ width: 32, minHeight: 32, flexShrink: 0 }}
+            aria-label="Sair"
+            onClick={signOut}
+          >
+            <span className="material-symbols-outlined" style={{ fontSize: 18 }}>logout</span>
+          </button>
         </div>
       </div>
     </aside>
